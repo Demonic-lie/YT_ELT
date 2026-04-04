@@ -1,6 +1,7 @@
 import requests
 import json
 from itertools import islice
+from datetime import date
 
 import os
 from dotenv import load_dotenv
@@ -80,9 +81,6 @@ def get_video_ids(playlistId):
     except requests.exceptions.RequestException as e:
         raise e
 
-
-
-
 def extract_video_data(video_ids):
 
     extracted_data = []
@@ -142,12 +140,16 @@ def extract_video_data(video_ids):
     except requests.exceptions.RequestException as e:
         raise e
     
+def save_to_json(extracted_data):
+    file_path = f'./data/YT_data_{date.today()}.json'
+    with open(file_path, 'w', encoding="utf-8") as json_outfile:
+        json.dump(extracted_data, json_outfile, indent=4, ensure_ascii=False)
 
 if __name__ == "__main__":
 
     playlistId = get_playlist_id()
     video_ids = get_video_ids(playlistId)
-
     extracted_data = extract_video_data(video_ids)
-    print(len(extracted_data))      # should be equal to no. of videos posted by the channel
+    # print(len(extracted_data))      # should be equal to no. of videos posted by the channel
+    save_to_json(extracted_data)
     
