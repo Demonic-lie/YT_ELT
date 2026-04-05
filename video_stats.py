@@ -151,6 +151,6 @@ if __name__ == "__main__":
     playlistId = get_playlist_id()
     video_ids = get_video_ids(playlistId)
     extracted_data = extract_video_data(video_ids)
-    # print(len(extracted_data))      # should be equal to no. of videos posted by the channel
+    # print(len(extracted_data))      # should be equal to no. of videos posted by the channel (currently 659 for mentioned handle)
     save_to_json(extracted_data)
     
